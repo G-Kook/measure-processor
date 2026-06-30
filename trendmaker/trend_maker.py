@@ -6,7 +6,6 @@ BASE_DIR = Path(__file__).resolve().parent
 OUT_DIR = BASE_DIR.parent / 'files_out'
 
 def make_trends():
-
     for folder in BASE_DIR.iterdir():
         if not folder.is_dir():
             continue
@@ -18,5 +17,4 @@ def make_trends():
                 [pl.read_ipc(f) for f in arrow_files],
                 how='diagonal'
             )
-
-        sbdf.export_data(trend.to_pandas(), f'{OUT_DIR}/{folder.name}.sbdf')
+        yield folder.name, trend
